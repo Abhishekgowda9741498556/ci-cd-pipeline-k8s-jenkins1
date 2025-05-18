@@ -1,0 +1,5 @@
+replicaCount: 2
+image:
+  repository: yourdockerhubusername/java-k8s-app
+  tag: latest
+  pullPolicy: IfNotPresent
