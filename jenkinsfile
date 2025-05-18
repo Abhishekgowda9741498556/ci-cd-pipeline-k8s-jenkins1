@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_IMAGE = "yourdockerhubusername/java-k8s-app"
+    }
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/yourusername/java-app-repo.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker Build & Push') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                sh 'docker push $DOCKER_IMAGE'
+            }
+        }
+        stage('Deploy to K8s') {
+            steps {
+                sh 'helm upgrade --install java-app ./k8s/helm-chart --set image.repository=$DOCKER_IMAGE'
+            }
+        }
+    }
+}
