@@ -1,0 +1,16 @@
+ci-cd-pipeline-k8s-jenkins/
+├── Jenkinsfile
+├── Dockerfile
+├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── helm-chart/
+│       ├── Chart.yaml
+│       ├── values.yaml
+│       └── templates/
+│           ├── deployment.yaml
+│           └── service.yaml
+├── src/
+│   └── JavaAppCode/
+│       └── App.java
+├── README.md
